@@ -1,0 +1,129 @@
+@model EFDemo2.Models.Student
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="accordion" id="studentAccordion">
+
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStudent">
+                Student Information
+            </button>
+        </h2>
+        <div id="collapseStudent" class="accordion-collapse collapse show" data-bs-parent="#studentAccordion">
+            <div class="accordion-body">
+                <dl class="row">
+                    @if (Model.Photo != null)
+                    {
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Photo)</dt>
+                        <dd class="col-sm-10">
+                            <img src="/StudentPhoto/@Model.Photo.PhotoPath" width="100px" height="120px" style="padding:2px; border:dashed 1px black;" />
+                        </dd>
+                    }
+                    else
+                    {
+                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Photo)</dt>
+                        <dd class="col-sm-10">
+                            <img src="/StudentPhoto/Dummy Image.jpg" width="100px" height="120px" style="padding:2px; border:dashed 1px black;" />
+                        </dd>
+                    }
+
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.StuId)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.StuId)</dd>
+
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Name)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Name)</dd>
+
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Gender)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Gender)</dd>
+
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.DOB)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.DOB)</dd>
+
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Email)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Email)</dd>
+
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Phone)</dt>
+                    <dd class="col-sm-10">@Html.DisplayFor(model => model.Phone)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCourse">
+                Course Information
+            </button>
+        </h2>
+        <div id="collapseCourse" class="accordion-collapse collapse" data-bs-parent="#studentAccordion">
+            <div class="accordion-body">
+                <table class="table table-info table-hover">
+                    <thead>
+                        <tr>
+                            <th>Course Id</th>
+                            <th>Course Name</th>
+                            <th>Course Fee</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Course.CourseId</td>
+                            <td>@Model.Course.CourseName</td>
+                            <td>@Model.Course.Fee</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFee">
+                Fee Information
+            </button>
+        </h2>
+        <div id="collapseFee" class="accordion-collapse collapse" data-bs-parent="#studentAccordion">
+            <div class="accordion-body">
+                <table class="table table-info table-hover">
+                    <thead>
+                        <tr>
+                            <th>Fee Id</th>
+                            <th>Payment Date</th>
+                            <th>Month Year</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Fees != null && Model.Fees.Any())
+                        {
+                            @foreach (var fee in Model.Fees)
+                            {
+                                <tr>
+                                    <td>@fee.FeeId</td>
+                                    <td>@fee.FeeDate.ToString("dd-MM-yyyy")</td>
+                                    <td>@fee.Month @fee.Year</td>
+                                    <td>@fee.Amount</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4">No fee records found for this student.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.StuId">Edit</a> |
+    <a class="btn btn-info" asp-action="Index">Back to List</a>
+</div>

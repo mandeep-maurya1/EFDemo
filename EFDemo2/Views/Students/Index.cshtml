@@ -1,0 +1,67 @@
+@model IEnumerable<EFDemo2.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@if(TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show role-alert">
+        <strong>Success!</strong> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dimiss="alert" aria-label="Close"></button>
+
+    </div>
+}
+@* @if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @TempData["SuccessMessage"]
+
+        <button type="button" class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"></button>
+    </div>
+} *@
+
+
+<h1>Student List</h1>
+
+<p>
+    <a class="btn btn-info" asp-action="Create">Create New</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.StuId)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.Phone)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => item.StuId)</td>
+                <td>@Html.DisplayFor(model => item.Name)</td>
+                <td>@Html.DisplayFor(model => item.Email)</td>
+                <td>@Html.DisplayFor(model => item.Phone)</td>
+                <td>
+                    <a class="btn btn-warning btn-sm"
+                       asp-action="Edit"
+                       asp-route-id="@item.StuId">Edit</a>
+
+                    <a class="btn btn-primary btn-sm"
+                       asp-action="Details"
+                       asp-route-id="@item.StuId">Details</a>
+
+                    <a class="btn btn-danger btn-sm"
+                       asp-action="Delete"
+                       asp-route-id="@item.StuId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

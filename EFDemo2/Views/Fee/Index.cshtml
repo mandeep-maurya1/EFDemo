@@ -1,0 +1,66 @@
+@model IEnumerable<EFDemo2.Models.Fee>
+@inject ApplicationDbContext context
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="p-2 bg-body-secondary">Fee Details</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table table-border table-striped table-group-divider table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FeeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Month)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FeeDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StuId)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.FeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Month)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FeeDate)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.StuId)
+            </td>
+            <td>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-feeid="@item.FeeId">Edit</a> |
+                <a class="btn btn-primary" asp-action="Details" asp-route-feeid="@item.FeeId">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-feeid="@item.FeeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

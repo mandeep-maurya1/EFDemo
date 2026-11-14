@@ -1,0 +1,42 @@
+@model IEnumerable<EFDemo2.Models.Photo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class ="p-2 bg-body-secondary">Student Photo</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table table-border table-striped table-group-divider table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PhotoPath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StuId)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="/StudentPhoto/@item.PhotoPath" width="50px"/>
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.StuId)
+            </td>
+            
+            <td>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-photoid="@item.PhotoId">Edit</a> |
+                <a class="btn btn-primary" asp-action="Details" asp-route-photoid="@item.PhotoId">Details</a> |
+                <a class="btn btn-danger"  asp-action="Delete" asp-route-photoid="@item.PhotoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

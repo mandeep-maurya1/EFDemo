@@ -1,0 +1,83 @@
+@model EFDemo2.Models.Fee
+@inject ApplicationDbContext context
+@inject EFDemo2.Service.ICodeGenerator codeGenerator
+
+@{
+    ViewData["Title"] = "Add Fee";
+    var st = context.Students.Select(x => new SelectListItem { Value = x.StuId, Text = x.StuId + "-" + x.Name }).ToList();
+
+    var feeid = codeGenerator.GenerateFeeCode();
+}
+
+<h1 class="p-2 bg-body-secondary">Add New Fee</h1>
+
+<h4>Fee Information</h4>
+<hr />
+<div class="row d-flex justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="FeeId" class="control-label"></label>
+            <input type="text" id="FeeId" name="FeeId"
+       class="form-control"
+       value="@feeid"
+       readonly />
+                <span asp-validation-for="FeeId" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="StuId" class="control-label"></label>
+                <select asp-for="StuId" class="form-select" asp-items="@st" ></select>
+                <span asp-validation-for="StuId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Month" class="control-label"></label>
+                <select class="form-select" asp-for="Month">
+                    <option value="">Select Month</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+                <span asp-validation-for="Month" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FeeDate" class="control-label"></label>
+                <input asp-for="FeeDate" type="date" class="form-control" />
+                <span asp-validation-for="FeeDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" type="number" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-info m-3" asp-action="Index">Back to List</a>
+</div>

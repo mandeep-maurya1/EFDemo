@@ -1,0 +1,20 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build folders
+**/bin/
+**/obj/
+
+# Development settings
+**/appsettings.Development.json
+
+# Student Photos
+**/wwwroot/StudentPhoto/
+
+# Publish
+publish/
+
+# Temporary files
+*.cache
